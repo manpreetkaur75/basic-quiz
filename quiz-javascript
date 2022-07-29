@@ -1,0 +1,227 @@
+const randomize=require('randomize-array');
+var readlineSync = require('readline-Sync');
+//ask from user to play or not
+
+if (readlineSync.keyInYN('Would you Like to Play?'))
+{ //if yes then 
+    var correct=/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
+    var isvalidname=true;
+    
+    
+    while(isvalidname){
+    var name=readlineSync.question("Name:");
+    if(name==null||name=="")
+    {
+      
+      console.log("name block can't blank");
+
+    }
+    else if (name.match(correct)){
+      isvalidname=false;
+    }
+    else{
+      console.log("please enter valid name");
+    }
+    }
+    var correct_email= /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    var isvalidemail=true;
+    while(isvalidemail){
+    var email=readlineSync.question("Email:");
+    if(email.match(correct_email))
+    {
+      true;
+      isvalidemail=false;
+    }
+    else{
+      console.log("please enter valid email");
+    }
+  }
+    var isvalidage=true;
+    while(isvalidage){
+    var age=readlineSync.question("age:");
+    if (isNaN(age)||age<1||age>100)
+    { 
+      console.log("The age must be a number between 1 and 100");
+    
+    }
+    else{
+      isvalidage=false;
+    }
+    }
+    var isvalidgender=true;
+    while(isvalidgender){
+    var gender=readlineSync.keyIn("gender(f/m): ");
+    if(gender=='f' ||gender=='F'||gender=='m'||gender=='M')
+    {
+      isvalidgender=false;
+    }
+    else{
+      console.log("please enter valid geneder");
+    }
+    
+    }
+    //here some from which questions will ask  
+    const questions=[{prompt:"how many states are there in india?\n(a)28\n(b)25\n(c)26",
+                      answer:"a"},
+                      {prompt:"what is the capital of punjab?\n(a)chandigarh\n(b)shimla\n(c)srinagar",
+                      answer:"a"},
+                      {prompt:"what is the capital of india?\n(a)srinagar\n(b)hyderabad\n(c)delhi",
+                      answer:"c"},
+                      {prompt:"what is the national bird of india?\n(a)kingfisher\n(b)peacock\n(c)pegion",
+                      answer:"b"},
+                      {prompt:"what is the national animal of india?\n(a)lion\n(b)tiger\n(c)rabbit",
+                      answer:"b"},
+                      {prompt:"how many territories are there in india?\n(a)8\n(b)7\n(c)6",
+                      answer:"a"},
+                      {prompt:"what is the national fruit of india?\n(a)mango\n(b)papaya\n(c)apple",
+                      answer:"a"},
+                      {prompt:"how many rivers are there in punjab ?\n(a)8\n(b)5\n(c)6",
+                      answer:"b"},
+                      {prompt:"how many states are there in canada ?\n(a)16\n(b)13\n(c14",
+                      answer:"b"},
+                      {prompt:"how many district are there in punjab?\n(a)25\n(b)26\n(c)23",
+                      answer:"c"},
+                      {prompt:"what is the colour of apple?\n(a)orange\n(b)yellow\n(c)green",
+                      answer:"a"},
+                      {prompt:"how many colours are there in rainbow?\n(a)7\n(b)5\n(c)6",
+                      answer:"a"},
+                      {prompt:"giddha is the folk dance of?\n(a)harayana\n(b)punjab\n(c)J&K",
+                      answer:"b"}, 
+                      {prompt:"who id the father of our nation\n(a)Mahatma Gandhi\n(b)sardar vallabhbhai patel\n(c)bal gangadhar tilak",
+                      answer:"a"}
+                    ]
+    var isvalidquestion=true;
+    while(isvalidquestion){
+      //no.of questions which you played
+    var id=readlineSync.question("How many Question you want to done from "+ questions.length +" Questions?");
+    if (id<1)
+    {
+      console.log("error:Please enter atleast 1 Question");
+    }
+    else if(id>questions.length)
+    {
+      console.log("please enter the number of questions in between the given number of questions...");
+    }
+    else
+    {
+      isvalidquestion=false;
+      var score=0;
+      for (var i=0;i<id;i++)
+      {
+        console.log("\n");
+        var response=readlineSync.question((i+1)+"."+questions[i].prompt+"\n\n");
+        if (response==questions[i].answer)
+        {
+          score++;
+          console.log("correct");
+        }
+        else
+        {
+          console.log("wrong");
+        }
+      }
+    }
+  }
+  //ask from user to display your result 
+  if(readlineSync.keyInYN("would you like to display your result?"))
+  { //if yes then 
+      console.log("name:"+name+"\n"+"Email:"+email+"\n"+"age:"+age+"\n"+"gender:"+gender);
+      console.log("questions played:",id);
+      console.log("total score:",id);
+      console.log("obtained score:",score);
+      perc=(score/id)*100
+      console.log("percentage"+perc+"%");
+      if (perc<=100 &&perc>=91)
+      {
+        console.log("O");
+      }
+      else if(perc<=90 &&perc>=81)
+      {
+        console.log("A+");
+      }
+      else if (perc<=80 &&perc>=71)
+      {
+        console.log("A");
+      }
+      else if(perc<=70&&perc>=61)
+      {
+        console.log("B");
+      }
+      else if (perc<=60&&perc>=51)
+      {
+        console.log("C");
+      }
+      else if (perc<=50&&perc>=41)
+      {
+        console.log("D");
+      }
+      else
+      {
+        console.log("F");
+      }
+
+    }
+    else
+    {
+      // no then
+      var isvalidcontinue=true;
+      while(isvalidcontinue){
+        //asked to continue or not
+      if(readlineSync.keyInYN("This will lead to lose your progress!!.Would you like to continue?"))
+      {
+        isvalidcontinue=false;
+        console.log("Exit...");
+      }
+      else
+      {   
+        if(readlineSync.keyInYN("would you like to display your result?"))
+        {
+          console.log("name:"+name+"\n"+"Email:"+email+"\n"+"age:"+age+"\n"+"gender:"+gender);
+          console.log("questions played:",id);
+          console.log("total score:",id);
+          console.log("obtained score:",score);
+          perc=(score/id)*100
+          console.log("percentage"+perc+"%");
+          if (perc<=100 &&perc>=91)
+          {
+            console.log("O");
+          }
+          else if(perc<=90 &&perc>=81)
+          {
+            console.log("A+");
+          }
+          else if (perc<=80 &&perc>=71)
+          {
+            console.log("A");
+          }
+          else if(perc<=70&&perc>=61)
+          {
+            console.log("B");
+          }
+          else if (perc<=60&&perc>=51)
+          {
+            console.log("C");
+          }
+          else if (perc<=50&&perc>=41)
+          {
+            console.log("D");
+          }
+          else
+          {
+            console.log("F");
+          }
+
+        }
+        
+        
+      }
+
+    }
+  }
+
+}
+else{
+  //if no then 
+  
+  console.log('Thanks for Visiting...');
+ }
